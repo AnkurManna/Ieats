@@ -4,3 +4,4 @@
 .metadata
 **/mvnw
 **/mvnw.cmd
+**/application.properties
