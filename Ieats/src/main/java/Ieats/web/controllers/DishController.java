@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
@@ -47,7 +48,7 @@ public class DishController {
 	//ItemAccessOperation op = new ItemAccessOperation();
 	//explicit new will stop spring to consider as a service
 	@GetMapping("/")
-	public String welcome()
+	public  String welcome()
 	{
 		logger.trace("In hello world");
 		//different levels of logging like trace,info
@@ -86,19 +87,19 @@ public class DishController {
 		repository.save(item);
 	}
 	@GetMapping("/dish/findAllDish/{id}")
-	public Optional<Dish> getItem(@PathVariable String id)
+	public Optional<Dish> getItem(@PathVariable Integer id)
 	{
-		return repository.findById(id);
+		return repository.findByDishid(id);
 	}
-	@CrossOrigin(origins = "https://localhost:3000")
+	
 	@DeleteMapping("/admin/dish/deletedish/{id}")
 	public String deleteBook(@PathVariable
-			String id)
+			Integer id)
 	{
-		repository.deleteById(id);
+		repository.deleteByDishid(id);
 		return "item deleted";
 	}
-	@CrossOrigin(origins = "https://localhost:3000")
+	
 	@GetMapping("/dish/searchdish/{type}")
 	public List<Dish> searchItem(@PathVariable String type,HttpSession session)
 	{

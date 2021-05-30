@@ -1,17 +1,24 @@
 package Ieats.domainmodel.models;
 
 
-import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.Document;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+
 
 import lombok.ToString;
 
 @ToString
 
-@Document(collection="Users")
+@Entity
+@Table(name="users")
 public class User {
 	@Id
-	public String id;
+	@GeneratedValue(strategy=GenerationType.AUTO)
+	private Integer userid;
 	
 	public String name,password,gender,mail;
 	

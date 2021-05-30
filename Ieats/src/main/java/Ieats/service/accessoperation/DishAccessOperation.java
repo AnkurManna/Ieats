@@ -12,7 +12,6 @@ import javax.servlet.http.HttpSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.mongodb.repository.config.EnableMongoRepositories;
 import org.springframework.stereotype.Service;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -64,7 +63,7 @@ public class DishAccessOperation {
 	}
 	public  String getAll(HashMap<String,Integer> preference,DishRepository repo,HttpSession session)
 	{
-		List<Dish> all = repo.findAll();
+		List<Dish> all =(List<Dish>) repo.findAll();
 		
 		all = Util(preference,all);
 	

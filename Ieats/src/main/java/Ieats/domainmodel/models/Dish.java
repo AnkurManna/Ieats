@@ -2,17 +2,25 @@ package Ieats.domainmodel.models;
 
 import java.util.ArrayList;
 
-import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.Document;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+
 
 import lombok.*;
 @Getter
 @Setter
 @NoArgsConstructor
-@Document(collection="Dishes")	
+@Entity
+@Table(name="dishes")
 public  class Dish  {
 	@Id
-	public String id;
+	@GeneratedValue(strategy=GenerationType.AUTO)
+	private Integer dishid;
+	
 	protected String description;
 	protected String type;
 	public ArrayList<String> keywords;
@@ -20,12 +28,7 @@ public  class Dish  {
 	private int popularity;
 	protected int cost;
 	protected int discount;
-	public Dish(String description,int cost,int discount)
-	{
-		this.description = description;
-		this.cost = cost;
-		this.discount = discount;
-	}
+	
 	public String getDescription() {
 		return description;
 	}
