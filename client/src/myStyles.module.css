@@ -1,0 +1,106 @@
+.info
+{
+   
+    margin-left: 108px;
+    margin-right: 4px;
+
+}
+
+.mybtn
+{
+    float: right;
+margin-right: -10px;
+border-radius: 3px;
+height: 46px;
+display: block;
+border: 6px solid #4CAF50;
+margin-top: -11px;
+}
+
+.bar
+{
+    border: 3px solid  #38753a;
+    padding: 25px;
+    border-radius: 8px;
+    width: 95%;
+    display: block;
+    margin: auto;
+    margin-top: 10px;
+    background-color: white;
+    color: #185c1a;
+}
+
+.mynav
+{
+    border: 2px solid blue;
+height: 55px;
+display: block;
+margin: auto;
+width: 100%;
+padding: 10px 10px;
+color: white;
+
+}
+
+.navElement
+{
+    text-align: center;
+    text-decoration: none;
+    color: black;
+    display: inline-block;
+    width: 50%;
+    
+}
+.Addition
+{
+    text-align: center;
+}
+
+.back
+{
+    background: #76b852; /* fallback for old browsers */
+  background: -webkit-linear-gradient(right, #76b852, #8DC26F);
+  background: -moz-linear-gradient(right, #76b852, #8DC26F);
+  background: -o-linear-gradient(right, #76b852, #8DC26F);
+  background: linear-gradient(to left, #76b852, #8DC26F);
+  height: 100vh;
+}
+
+.landingPage
+{
+    height:100vh;
+    
+}
+.bd{
+    color: white;
+    font-size: 78px;
+    display: block;
+    margin: auto;
+    position: relative;
+    left: 560px;
+    top: 200px;
+}
+.wrap
+{
+    
+    height: 100vh;
+}
+
+.searchBox{
+    display: flex;
+}
+.cen
+{
+    text-align: center;
+}
+.rst
+{
+    border:2 px solid black;
+    text-align: center;
+}
+
+.Searcheditem
+{
+    border: 2px solid red;
+    background-color: yellow;
+}
