@@ -11,7 +11,7 @@ function LandingPage ({ck,setck,admin,setAdmin})
       
     const logout =  (e=>{
         e.preventDefault();
-    axios.get('https://localhost:8443/lgout', {
+    axios.get('http://localhost:8081/lgout', {
         
         withCredentials: true 
     })
@@ -19,6 +19,7 @@ function LandingPage ({ck,setck,admin,setAdmin})
         console.log(response);
         const cookies = new Cookies();
         //setck(cookies.get("loggedIn"));
+        cookies.remove('token',{path:'/'});
         setAdmin(false);
         window.location.reload();
         
@@ -115,9 +116,6 @@ function LandingPage ({ck,setck,admin,setAdmin})
             
             <Searcheditem ck={ck} data={searched} type={curtype}/>
         }
-
-      
-
         {data.length>0&&data.map((item)=><Card ck={ck} val={item} people='User'/>)}
         </>
 

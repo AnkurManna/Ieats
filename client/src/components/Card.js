@@ -1,15 +1,12 @@
 
 import React from 'react';
-
 import styles from '../myStyles.module.css';
 import axios from 'axios';
 import {useState} from 'react';
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 const Card = ({ck,val,people}) => {
-
-
   const [dish,setdish] = useState({description:'',type:'',rating:0,poplarity:0,cost:0,discount:0,keywords:[]});
-  const [updvisibility,setupdvisibility] = useState(false);
+  const [showUpdateForm,setShowUpdateForm] = useState(false);
     const instance = axios.create({
         withCredentials: true
       })
@@ -26,77 +23,67 @@ const Card = ({ck,val,people}) => {
             console.log(e);
         })
     }
-   
       
     const upd = (id) => {
-        setupdvisibility(!updvisibility);
-        setprice(val.price);
-        settype(val.type);
-        setgender(val.gender);
-        setbrand(val.starbrand);
-        setcurrentdiscount(val.currentdiscount);
-        setdiscountduration(val.discountduration);
-        setarrivaldate(val.arrivaldate);
-        setnewarrival(val.newarrival);
+        setdish(val);
         update(id);
+        setShowUpdateForm(!showUpdateForm);
     }
     const update = (id) =>{
-        let val = {id:id,brand:brand,type:type,gender:gender,currentdiscount:currentdiscount,discountduration:discountduration,price:price,newarrival:newarrival,arrivaldate:arrivaldate};
-        let apiUrl = 'https://localhost:8443/admin/item/updateItem/';
-        console.log(val);
+        
+      let apiUrl = 'https://localhost:8443/admin/item/updateItem/';
+      console.log(dish);
       apiUrl = apiUrl + id;
-      instance.put(apiUrl,val)
+      instance.put(apiUrl,dish)
       .then((response)=>console.log(response))
-      .catch(e=>{console.log(e)})
+      .catch(error =>{console.log(error)})
     }
   return (
     <div className={styles.bar}>
     
-    <span  className={styles.info}>Brand : {val.brand}</span>
+    <span  className={styles.info}>description : {val.description}</span>
     <span  className={styles.info}>Type : {val.type}</span>
-    <span  className={styles.info}>Price : ₹{val.price}</span>
-    <span  className={styles.info}>Gender: {val.gender}</span>
-    <span  className={styles.info}>Current Discount: {val.currentdiscount}</span>
-    <span  className={styles.info}>Discount Duration: {val.discountduration}</span>
+    <span  className={styles.info}>cost : ₹{val.cost}</span>
+    <span  className={styles.info}>rating: {val.rating}</span>
+    <span  className={styles.info}>popularity: {val.popularity}</span>
+    <span  className={styles.info}>Discount : {val.discount}</span>
 
-    {people==='User'?<span><button className={styles.mybtn}>Book</button></span>:<span  ><button className={styles.mybtn} onClick={()=>upd(val)}>Update</button>
+    {people==='User'?<span><button className={styles.mybtn}>Order</button></span>:<span  ><button className={styles.mybtn} onClick={()=>upd(val)}>Update</button>
     <button className={styles.mybtn} onClick={()=>del(val.id)}>Delete</button></span>}
-    {updvisibility?
+    {showUpdateForm?
     <div>
       
-      <Modal isOpen={updvisibility} >
+      <Modal isOpen={showUpdateForm} >
           <form>
-      <div className='form-control'>
-            <label>type</label>
-            <input type='text' placeholder='type'  value={type} onChange={(e)=>settype(e.target.value)}/>
-        </div>
+            <div className='form-control'>
+                <label>Description</label>
+                <input type='text' placeholder='description'  value={dish.description} onChange={(e)=>setdish({...dish,description:e.target.value})}/>
+            </div>
 
-        <div className='form-control'>
-            <label>brand</label>
-            <input type='text' placeholder='brand' value={brand}  onChange={(e)=>setbrand(e.target.value)}/>
-        </div>
+            <div className='form-control'>
+                <label>Type</label>
+                <input type='text' placeholder='type' value={dish.type}  onChange={(e)=>setdish({...dish,type:e.target.value})}/>
+            </div>
 
-        <div className='form-control'>
-            <label>Gender</label>
-            <input type='text' placeholder='Gender' value={gender} onChange={(e)=>setgender(e.target.value)}/>
-        </div>
+            <div className='form-control'>
+                <label>Cost</label>
+                <input type='text' placeholder='Cost' value={dish.cost} onChange={(e)=>setdish({...dish,cost:e.target.value})}/>
+            </div>
 
-        <div className='form-control'>
-            <label>Price</label>
-            <input type='text' placeholder='Gender' value={price} onChange={(e)=>setprice(e.target.value)}/>
-        </div>
+            <div className='form-control'>
+                <label>Rating</label>
+                <input type='text' placeholder='Rating' value={dish.rating} onChange={(e)=>setdish({...dish,rating:e.target.value})}/>
+            </div>
 
-        <div className='form-control'>
-            <label>Current Discount</label>
-            <input type='text' placeholder='Gender' value={currentdiscount} onChange={(e)=>setcurrentdiscount(e.target.value)}/>
-        </div>
+            <div className='form-control'>
+                <label>Discount</label>
+                <input type='text' placeholder='Discount' value={dish.discount} onChange={(e)=>setdish({...dish,discount:e.target.value})}/>
+            </div>
 
-        
-        
-        <ModalFooter>
-          <Button color="primary" onClick={update(val.id)}>update</Button>{' '}
-          <Button color="secondary" onClick={upd}>Cancel</Button>
-        </ModalFooter>
+            <ModalFooter>
+              <Button color="primary" onClick={update(val.id)}>update</Button>{' '}
+              <Button color="secondary" onClick={upd}>Cancel</Button>
+            </ModalFooter>
         </form>
       </Modal>
     </div>:''}

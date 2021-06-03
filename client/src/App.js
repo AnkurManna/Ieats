@@ -13,25 +13,24 @@ const axios = require('axios');
 function App() {
   
   
-  const [cook,setcook]=useState('');
-  const [admin,setAdmin] = useState(false);
+  const [token,setToken]=useState('');
+  const [isAdmin,setIsAdmin] = useState(false);
   
   useEffect(()=>{
     const cookies = new Cookies();
     console.log("again");
-    setcook(cookies.get("loggedIn"));
-    setAdmin(cookies.get("Admin"));
-  },[cook]);
+    setToken(cookies.get("token"));
+    setIsAdmin(cookies.get("isAdmin"));
+  },[token]);
 
-  const call=()=>{
+  const toggleMenu=()=>{
     const cookies = new Cookies();
     
-    if(!admin)
-    cookies.set('Admin', true, { path: '/' });
+    if(!isAdmin)
+    cookies.set('isAdmin', true, { path: '/' });
     else
-    cookies.remove('Admin',{path:'/'});
+    cookies.remove('isAdmin',{path:'/'});
     window.location.reload();
-    
   }
 
 
@@ -39,15 +38,15 @@ function App() {
   return (
     <div className="App">
     <div>
-    <button onClick={call}>Admin</button>
+    <button onClick={toggleMenu}>Admin</button>
     </div>
       <Router >
           <div >
             <span>
-                {!admin&&<Link to='/userLogin' exact >Users</Link>}
+                {!isAdmin&&<Link to='/userLogin' exact >Users</Link>}
                 </span>
                 <span > 
-                {admin&&<Link to='/adminlogin'  exact >Admin</Link>}
+                {isAdmin&&<Link to='/adminlogin'  exact >Admin</Link>}
                 </span>
           </div>
 
@@ -55,12 +54,12 @@ function App() {
         <Switch>
         <div >
         
-        {!admin&&<Route exact path="/userlogin" >
-        {cook?<LandingPage ck={cook} setck={setcook} admin={admin} setAdmin={setAdmin} />:<Entry ck={cook} setck={setcook} admin={admin} setAdmin={setAdmin} peo="user"/>}
+        {!isAdmin&&<Route exact path="/userlogin" >
+        {token?<LandingPage ck={token} setck={setToken} admin={isAdmin} setAdmin={setIsAdmin} />:<Entry ck={token} setck={setToken} admin={isAdmin} setAdmin={setIsAdmin} peo="user"/>}
         </Route>}
-        {admin&&
+        {isAdmin&&
         <Route exact path="/adminlogin">
-        {cook?<LandingPageAdmin ck={cook} setck={setcook} admin={admin} setAdmin={setAdmin}/>:<Entry ck={cook} setck={setcook} admin={admin} setAdmin={setAdmin} peo="admin"/>}
+    {token?<LandingPageAdmin ck={token} setck={setToken} admin={isAdmin} setAdmin={setIsAdmin}/>:<Entry ck={token} setck={setToken} admin={isAdmin} setAdmin={setIsAdmin} peo="admin"/>}
         </Route>}
 
         
