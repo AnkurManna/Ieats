@@ -7,21 +7,16 @@ import {useState} from 'react';
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 const Card = ({ck,val,people}) => {
 
-    const [brand ,setbrand] = useState('');
-    const [type, settype] = useState('');
-    const [price, setprice] = useState('');
-    const [gender, setgender] = useState('');
-    const [currentdiscount, setcurrentdiscount] = useState('');
-    const [updvisibility,setupdvisibility] = useState(false);
-    const [discountduration,setdiscountduration]=useState('');
-    const [arrivaldate,setarrivaldate]=useState('');
-    const [newarrival,setnewarrival] = useState(false);
+
+  const [dish,setdish] = useState({description:'',type:'',rating:0,poplarity:0,cost:0,discount:0,keywords:[]});
+  const [updvisibility,setupdvisibility] = useState(false);
     const instance = axios.create({
         withCredentials: true
       })
+    
     const del = (id) =>{
         console.log(id);
-        let apiUrl = 'https://localhost:8443/admin/item/deleteitem/';
+        let apiUrl = 'http://localhost:8081/admin/item/deleteitem/';
         apiUrl = apiUrl+id;
         instance.delete(apiUrl)
         .then(res=>{

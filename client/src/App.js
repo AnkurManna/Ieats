@@ -12,20 +12,7 @@ const axios = require('axios');
 
 function App() {
   
-  /*useEffect(()=>{
-    axios.post('http://localhost:8080/addbook', {
-      id:235,
-      bookName:"harry potter",
-      authorName:"JK Rowling"
-    })
-    .then(function (response) {
-      console.log(response);
-    })
-    .catch(function (error) {
-      console.log(error);
-    });
-  })*/
-  //const history = createBrowserHistory();
+  
   const [cook,setcook]=useState('');
   const [admin,setAdmin] = useState(false);
   
@@ -35,6 +22,7 @@ function App() {
     setcook(cookies.get("loggedIn"));
     setAdmin(cookies.get("Admin"));
   },[cook]);
+
   const call=()=>{
     const cookies = new Cookies();
     
@@ -46,12 +34,7 @@ function App() {
     
   }
 
-  const chk = (e =>{
-    axios.get('http://localhost:8080/check',{ withCredentials: true }).then(res=>{console.log(res)}).catch(e=>{console.log(e)})
-  })
-  const chk2 = (e =>{
-    axios.get('http://localhost:8080/session',{ withCredentials: true }).then(res=>{console.log(res)}).catch(e=>{console.log(e)})
-  })
+
   
   return (
     <div className="App">
