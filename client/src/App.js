@@ -2,13 +2,12 @@ import logo from './logo.svg';
 import './App.css';
 import React, { useState, useEffect } from 'react';
 import {BrowserRouter as Router ,Switch,Link,Route} from 'react-router-dom';
-import LandingPage from './component/LandingPage';
-import LandingPageAdmin from './component/LandingPageAdmin';
-import Entry from './component/Entry';
+import LandingPage from './components/LandingPage';
+import LandingPageAdmin from './components/LandingPageAdmin';
+import Entry from './components/Entry';
 import Cookies from 'universal-cookie';
 import styles from './myStyles.module.css';
 const axios = require('axios');
-require('dotenv').config()
 
 
 function App() {
@@ -28,14 +27,13 @@ function App() {
   })*/
   //const history = createBrowserHistory();
   const [cook,setcook]=useState('');
-  const [admin,setAdmin] = useState(false)
+  const [admin,setAdmin] = useState(false);
   
-   useEffect(()=>{
+  useEffect(()=>{
     const cookies = new Cookies();
     console.log("again");
     setcook(cookies.get("loggedIn"));
     setAdmin(cookies.get("Admin"));
-
   },[cook]);
   const call=()=>{
     const cookies = new Cookies();
@@ -60,22 +58,14 @@ function App() {
     <div>
     <button onClick={call}>Admin</button>
     </div>
-
-    
       <Router >
           <div >
-
             <span>
-        
                 {!admin&&<Link to='/userLogin' exact >Users</Link>}
                 </span>
-              
                 <span > 
                 {admin&&<Link to='/adminlogin'  exact >Admin</Link>}
                 </span>
-
-          
-          
           </div>
 
       
@@ -101,33 +91,3 @@ function App() {
 }
 
 export default App;
-
-/**
- *  <Router>
-          <div className={styles.mynav}>
-
-            <span className={styles.navElement}>
-           
-                <NavLink to='/userLogin' exact >Users</NavLink>
-                </span>
-              
-                <span className={styles.navElement}> 
-                <NavLink to='/adminlogin'  exact >Admin</NavLink>
-            </span>
-          </div>
-
-      
-        <Switch>
-        <div >
-        
-        <Route exact path="/userlogin" >
-        <User/>
-        </Route>
-        <Route exact path="/adminlogin" component = {Admin}></Route>
-
-        
-        </div>
-        
-        </Switch>
-        </Router>
- */

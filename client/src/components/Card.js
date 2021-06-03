@@ -1,6 +1,5 @@
 
 import React from 'react';
-import 'bootstrap/dist/css/bootstrap.css';
 
 import styles from '../myStyles.module.css';
 import axios from 'axios';
