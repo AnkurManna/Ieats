@@ -42,30 +42,31 @@ function App() {
     </div>
       <Router >
           <div >
-            <span>
-                {!isAdmin&&<Link to='/userLogin' exact >Users</Link>}
+                <span>
+                  {!isAdmin&&<Link to='/userLogin' exact >Users</Link>}
                 </span>
                 <span > 
-                {isAdmin&&<Link to='/adminlogin'  exact >Admin</Link>}
+                  {isAdmin&&<Link to='/adminlogin'  exact >Admin</Link>}
                 </span>
           </div>
 
-      
-        <Switch>
-        <div >
-        
-        {!isAdmin&&<Route exact path="/userlogin" >
-        {token?<LandingPage ck={token} setck={setToken} admin={isAdmin} setAdmin={setIsAdmin} />:<Entry ck={token} setck={setToken} admin={isAdmin} setAdmin={setIsAdmin} peo="user"/>}
-        </Route>}
-        {isAdmin&&
-        <Route exact path="/adminlogin">
-    {token?<LandingPageAdmin ck={token} setck={setToken} admin={isAdmin} setAdmin={setIsAdmin}/>:<Entry ck={token} setck={setToken} admin={isAdmin} setAdmin={setIsAdmin} peo="admin"/>}
-        </Route>}
+          <Switch>
+            <div >
+            
+            {!isAdmin&&
+            <Route exact path="/userlogin" >
+                {token?<LandingPage ck={token} setck={setToken} admin={isAdmin} setAdmin={setIsAdmin} />:<Entry ck={token} setck={setToken} admin={isAdmin} setAdmin={setIsAdmin} peo="user"/>}
+            </Route>}
 
-        
-        </div>
-        
-        </Switch>
+            {isAdmin&&
+            <Route exact path="/adminlogin">
+        {token?<LandingPageAdmin ck={token} setck={setToken} admin={isAdmin} setAdmin={setIsAdmin}/>:<Entry ck={token} setck={setToken} admin={isAdmin} setAdmin={setIsAdmin} peo="admin"/>}
+            </Route>}
+            
+            </div>
+          
+          </Switch>
+          
         </Router>
       
     </div>
