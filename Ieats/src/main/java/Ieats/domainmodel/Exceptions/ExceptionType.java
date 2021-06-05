@@ -1,0 +1,17 @@
+package Ieats.domainmodel.exceptions;
+
+public enum ExceptionType {
+	
+	MENU_NOT_FOUND,
+    MENU_ALREADY_EXISTS,
+    CART_IS_EMPTY,
+    MENU_ITEM_NOT_FOUND,
+    ORDER_NOT_VALID,
+    ORDER_NOT_FOUND,
+    USER_ALREADY_EXISTS,
+    USER_NOT_FOUND,
+    PAYMENT_NOT_EXISTS,
+    DELIVERY_ALREADY_EXISTS,
+    DELIVERY_NOT_FOUND,
+    ORDER_NOT_CONFIRMED
+}

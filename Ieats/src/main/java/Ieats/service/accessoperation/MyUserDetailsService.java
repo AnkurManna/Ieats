@@ -23,12 +23,8 @@ public class MyUserDetailsService implements UserDetailsService {
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 		// TODO Auto-generated method stub
 	
-		
-			
 			Optional<User> user = repo.findByMail(username);
-			
 			user.orElseThrow(() -> new UsernameNotFoundException("Not found: " + username));
-
 	        return user.map(MyUserDetails::new).get();
 	}
 
