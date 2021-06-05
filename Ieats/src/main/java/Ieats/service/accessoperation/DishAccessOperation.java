@@ -12,6 +12,7 @@ import javax.servlet.http.HttpSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -61,6 +62,7 @@ public class DishAccessOperation {
 		Collections.sort(all, new OrderByPreference(preference));
 		return all;
 	}
+	@Cacheable
 	public  String getAll(HashMap<String,Integer> preference,DishRepository repo,HttpSession session)
 	{
 		List<Dish> all =(List<Dish>) repo.findAll();
@@ -88,7 +90,7 @@ public class DishAccessOperation {
 	
 	
 	//repository.findByCurrentdiscountGreaterThan(0);
-	
+	@Cacheable({"dishes"})
 	public  String getCurrentDiscounts(HashMap<String,Integer> preference)
 	{
 		List<Dish> all = repository.findByDiscountGreaterThan(0);

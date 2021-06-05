@@ -11,6 +11,7 @@ import javax.servlet.http.HttpSession;
 
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -79,7 +80,7 @@ public class DishController {
 		return op.getAll(preference,repository,session);
 		
 	}
-	
+	@CacheEvict(value="dishes", allEntries=true)
 	@PutMapping("/admin/dish/updateDish/{id}")
 	public void update(@RequestBody Dish item)
 	{
@@ -128,7 +129,7 @@ public class DishController {
 	}
 	
 	@SuppressWarnings("unchecked")
-	@GetMapping("/item/discounts")
+	@GetMapping("/dish/discounts")
 	public String Getdiscount(HttpSession session) 
 	{
 		HashMap<String,Integer> preference = null;
