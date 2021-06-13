@@ -99,7 +99,6 @@ function LandingPage ({ck,setck,admin,setAdmin})
             <option value="Jeans" />
             <option value="Blazer" />
             <option value="aa" />
-
             </datalist>
 
             <button onClick={search}>search</button>

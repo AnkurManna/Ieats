@@ -39,14 +39,11 @@ function Login({flag,func,ck,setck,setAdmin})
             <label>email</label>
             <input type='text' placeholder='mail' value={credentials.username}  onChange={(e)=>setcredentials({...credentials,username:e.target.value})}/>
         </div>
-
         <div className='form-control'>
             <label>password</label>
             <input type='text' placeholder='password' value={credentials.password} onChange={(e)=>setcredentials({...credentials,password:e.target.value})}/>
         </div>
-
         <button text='submit' onClick={login}>Add</button>
-
         <div>
             <h3>Dont have any account?</h3>
             <span>Register here</span><span><button onClick={toggle}>Register</button></span>

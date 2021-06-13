@@ -24,5 +24,11 @@ public class Cart {
 	private Integer cartid;
 	
 	private Integer userid;
-	private ArrayList<Dish>cartelement;
+	private Cartelement cartelement;
+	
+	public Cart(Integer userid)
+	{
+		
+		this.userid = userid;
+	}
 }
