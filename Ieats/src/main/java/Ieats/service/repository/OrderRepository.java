@@ -11,7 +11,7 @@ import Ieats.domainmodel.models.Order;
 @Repository
 public interface OrderRepository  extends JpaRepository<Order,Integer> {
 	
-	public List<Order> findByUserId(Integer userId);
+	public List<Order> findByUsername(String username);
 	public Optional<Order> findById(Integer id);
 	public void deleteById(Integer id);
 }
