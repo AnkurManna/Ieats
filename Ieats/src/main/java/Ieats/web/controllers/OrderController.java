@@ -9,6 +9,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -16,9 +18,11 @@ import org.springframework.web.bind.annotation.RestController;
 import Ieats.domainmodel.models.Cartelement;
 import Ieats.domainmodel.models.Dish;
 import Ieats.domainmodel.models.Order;
+import Ieats.domainmodel.models.User;
 import Ieats.domainmodel.utils.JwtUtils;
 import Ieats.service.accessoperation.DishAccessOperation;
 import Ieats.service.accessoperation.OrderAccessOperation;
+import Ieats.service.accessoperation.UserAccessOperation;
 
 @RestController
 public class OrderController {
@@ -28,6 +32,9 @@ public class OrderController {
 	
 	@Autowired
 	OrderAccessOperation orderAcc;
+	
+	@Autowired
+	UserAccessOperation userAcc;
 	
 	@Autowired
 	private JwtUtils jwtUtil;
@@ -72,6 +79,13 @@ public class OrderController {
 		 }
 	            
 		return "Order Placed";
+	}
+	
+	@GetMapping("/orders/{id}")
+	public List<Order> getAll(@PathVariable Integer id)
+	{
+		Optional<User>curUser = userAcc.findById(id);
+		return orderAcc.findByUsername(curUser.get().getName());
 	}
 	
 	/*
