@@ -1,5 +1,7 @@
 import logo from './logo.svg';
+import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
+
 import React, { useState, useEffect } from 'react';
 import {BrowserRouter as Router ,Switch,Link,Route} from 'react-router-dom';
 import LandingPage from './components/LandingPage';
@@ -11,7 +13,6 @@ const axios = require('axios');
 require('dotenv').config();
 
 function App() {
-  
   
   const [token,setToken]=useState('');
   const [isAdmin,setIsAdmin] = useState(false);

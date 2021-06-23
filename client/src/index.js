@@ -2,11 +2,12 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
+import App2 from './App2';
 import ErrorBoundary from './ErrorBoundary';
 require('dotenv').config();
 ReactDOM.render(
     <ErrorBoundary>
-    <App />
+    <App2 />
     </ErrorBoundary>
   ,
   document.getElementById('root')

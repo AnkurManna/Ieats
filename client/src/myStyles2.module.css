@@ -1,0 +1,28 @@
+.enrtyPoint
+{
+    
+    
+}
+.searchBox
+{
+    display: flex;
+    width: 50vw;
+    margin: 0 2vw;
+}
+.brandName
+{
+    font-weight: bold;
+    text-align: center;
+    width: 10vw;
+}
+
+@media only screen and (max-width: 768px) {  
+    
+    .searchBox
+    {
+        display: flex;
+        width: 60vw;
+        margin: 0 ;
+    }
+
+}  
