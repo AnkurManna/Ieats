@@ -9,12 +9,14 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import Ieats.domainmodel.exceptions.IeatsRequestException;
 import Ieats.domainmodel.models.Cartelement;
 import Ieats.domainmodel.models.Dish;
 import Ieats.domainmodel.models.Order;
@@ -23,7 +25,7 @@ import Ieats.domainmodel.utils.JwtUtils;
 import Ieats.service.accessoperation.DishAccessOperation;
 import Ieats.service.accessoperation.OrderAccessOperation;
 import Ieats.service.accessoperation.UserAccessOperation;
-
+@CrossOrigin(maxAge = 3600)
 @RestController
 public class OrderController {
 	
@@ -70,6 +72,9 @@ public class OrderController {
 		 {
 			 Order cur = new Order();
 			 Optional<Dish>curDish = op.findByDescription(entry.getKey());
+			 if(curDish.isEmpty())
+				 throw new IeatsRequestException("No Dish Present");
+			 
 			 cur.setBill(curDish.get().getCost()*entry.getValue());
 			 cur.setAmount(entry.getValue());
 			 cur.setDishname(entry.getKey());

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Cookies from 'universal-cookie';
 import axios from 'axios';
+require('dotenv').config()
 function Login({flag,func,ck,setck,setAdmin})
 {
     /*const [mail,setmail] = useState('');
@@ -12,9 +13,11 @@ function Login({flag,func,ck,setck,setAdmin})
     .catch(error=>{console.log(error)})
     }
     */
+    const apiUrl = process.env.React_App_apiUrl;
+    const authUrl = apiUrl + 'authenticate';
     const login =  (event =>{
         event.preventDefault();
-    axios.post('http://localhost:8081/authenticate', credentials)
+    axios.post(authUrl, credentials)
     .then(function (response) {
         console.log(response.data.jwt);
         const cookies = new Cookies();

@@ -1,10 +1,11 @@
 import {useState} from 'react';
-
 const axios = require('axios');
+require('dotenv').config()
 const Register = ({flag,func}) => {
 
+    
     const [user,setuser] = useState({name:'',mail:'',password:'',gender:''});
-    const apiUrl = 'http://localhost:8081/adduser';
+    const apiUrl = process.env.React_App_apiUrl + 'adduser';
     const onAdd = (val) =>{
     
     axios.post(apiUrl,val)
@@ -15,6 +16,7 @@ const Register = ({flag,func}) => {
     const submit = (event) =>{
         event.preventDefault();
         console.log(user);
+        console.log(apiUrl);
         onAdd(user);
         setuser({...user,name:'',mail:'',password:'',gender:''});
     }

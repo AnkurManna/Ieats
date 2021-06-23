@@ -80,7 +80,6 @@ public class DishController {
 		return op.getAll(preference,repository,session);
 		
 	}
-	@CacheEvict(value="dishes", allEntries=true)
 	@PutMapping("/admin/dish/updateDish/{id}")
 	public void update(@RequestBody Dish item)
 	{

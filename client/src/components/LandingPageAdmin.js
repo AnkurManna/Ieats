@@ -4,9 +4,12 @@ import {useState,useEffect} from 'react';
 import Card from './Card';
 function LandingPage ({ck,setck})
 {
+    const apiUrl = process.env.React_App_apiUrl;
+    const logoutUrl = apiUrl + 'lgout';
     const logout =  (e=>{
         e.preventDefault();
-    axios.get('https://localhost:8443/lgout', {
+
+    axios.get(logoutUrl, {
         
         withCredentials: true 
     })
@@ -26,7 +29,8 @@ function LandingPage ({ck,setck})
     const [data,setdata] = useState('');
 
     useEffect(() => {
-        axios.get('https://localhost:8443/item/findallItems', {
+        const allDishUrl = apiUrl + 'dish/findallDishes';
+        axios.get(allDishUrl, {
         
         withCredentials: true 
     },[data])
@@ -66,8 +70,6 @@ function LandingPage ({ck,setck})
         <option value="Microsoft Edge" />   
     </datalist>
 <button onClick={search}>search</button>
-
-        
 
         {data.length>0&&data.map((item)=><Card val={item} people='Admin'/>)}
 

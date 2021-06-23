@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import ErrorBoundary from './ErrorBoundary';
-
+require('dotenv').config();
 ReactDOM.render(
     <ErrorBoundary>
     <App />

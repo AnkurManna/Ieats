@@ -9,7 +9,9 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -20,7 +22,7 @@ import Ieats.service.accessoperation.UserAccessOperation;
 import Ieats.service.repository.*;
 
 
-
+@CrossOrigin(maxAge = 3600)
 @RestController
 public class UserController {
 	
@@ -62,6 +64,14 @@ public class UserController {
 			return "invalid credentials";
 		}
 		
+	}
+	
+	@GetMapping("/userdata/{mail}")
+	public User getbymail(@PathVariable String mail)
+	{
+		Optional<User> user = repository.findByMail(mail);
+		System.out.println(user.get());
+		return user.get();
 	}
 	
 	@PostMapping("/adduser")

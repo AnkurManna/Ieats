@@ -30,7 +30,7 @@ const Card = ({ck,val,people}) => {
         setShowUpdateForm(!showUpdateForm);
     }
     const update = (id) =>{
-        
+    
       let apiUrl = 'https://localhost:8443/admin/item/updateItem/';
       console.log(dish);
       apiUrl = apiUrl + id;

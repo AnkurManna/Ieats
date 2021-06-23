@@ -8,7 +8,7 @@ import Entry from './components/Entry';
 import Cookies from 'universal-cookie';
 import styles from './myStyles.module.css';
 const axios = require('axios');
-
+require('dotenv').config();
 
 function App() {
   
