@@ -7,20 +7,18 @@ NavbarBrand,
 Nav,
 NavItem,
 NavLink,
-UncontrolledDropdown,
-DropdownToggle,
-DropdownMenu,
-DropdownItem,
-NavbarText,
 Input,
 Button
 } from 'reactstrap';
 import styles from '../myStyles2.module.css';
-
+import LoginModal from './LoginModal';
+import RegistrationModal from './RegistrationModal';
 const NavBar = (props) => {
-  const [isOpen, setIsOpen] = useState(false);
+    const [isOpen, setIsOpen] = useState(false);
+    const [loginModal,setLoginModal] = useState(false);
+    const [registrationModal,setRegistrationModal] = useState(false);
 
-  const toggle = () => setIsOpen(!isOpen);
+    const toggle = () => setIsOpen(!isOpen);
 
   return (
     <div>
@@ -35,12 +33,13 @@ const NavBar = (props) => {
             </div>
             <Nav className="mr-auto d-flex flex-row-reverse" navbar>
                 <NavItem  className="mx-2">
-                    <NavLink  href="/components/">Log in</NavLink>
+                    <NavLink   onClick={()=>setLoginModal(!loginModal)}>Log in</NavLink>
                 </NavItem>
+                <LoginModal loginModal={loginModal} setLoginModal={setLoginModal}/>
                 <NavItem className="mx-2">
-                    <NavLink href="https://github.com/reactstrap/reactstrap">Sign up</NavLink>
+                    <NavLink onClick={()=>setRegistrationModal(!registrationModal)}>Sign up</NavLink>
                 </NavItem>
-            
+                <RegistrationModal registrationModal={registrationModal} setRegistrationModal={setRegistrationModal}/>
             </Nav>
         </Collapse>
         </Navbar>

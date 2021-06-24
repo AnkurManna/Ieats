@@ -1,32 +1,66 @@
 
 import React, { useState } from 'react';
-import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
+import { Button, Modal, ModalHeader, ModalBody, ModalFooter,Form,Col,FormGroup,Input,Label,Row } from 'reactstrap';
+import axios from 'axios';
+import Cookies from 'universal-cookie';
+import styles from '../myStyles2.module.css';
+require('dotenv').config();
+const LoginModal = ({loginModal,setLoginModal}) => {
+    
+    const [credentials,setcredentials] = useState({username:'',password:''});
+    const apiUrl = process.env.React_App_apiUrl;
+    const authUrl = apiUrl + 'authenticate';
+    const login =  (event =>{
+        event.preventDefault();
+        console.log(credentials);
+    axios.post(authUrl, credentials)
+    .then(function (response) {
+        console.log(response.data.jwt);
+        const cookies = new Cookies();
+        cookies.set("token","Bearer "+response.data.jwt);
+       // setck(cookies.get("loggedIn"));
+       toggle();
+        window.location.reload();
+        
+    })
+    .catch(function (error) {
+        console.log(error);
+    });
+    
+    })
+    
 
-const ModalExample = (props) => {
-    const {
-    buttonLabel,
-    className
-    } = props;
-
-    const [modal, setModal] = useState(false);
-
-    const toggle = () => setModal(!modal);
+    const toggle = () => setLoginModal(!loginModal);
 
     return (
     <div>
-        <Button color="danger" onClick={toggle}>{buttonLabel}</Button>
-        <Modal isOpen={modal} toggle={toggle} className={className}>
-        <ModalHeader toggle={toggle}>Modal title</ModalHeader>
+        
+        <Modal isOpen={loginModal} toggle={toggle}>
+        <ModalHeader toggle={toggle}>Log in</ModalHeader>
         <ModalBody>
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+            <Form>
+            <Row form>
+            <Col >
+            <FormGroup>
+            <Label for="exampleEmail">Email</Label>
+            <Input type='text' placeholder='mail' value={credentials.username}  onChange={(e)=>setcredentials({...credentials,username:e.target.value})}/>        </FormGroup>
+            </Col>
+        <Col >
+            <FormGroup>
+            <Label for="examplePassword">Password</Label>
+            <Input type='password' placeholder='password' value={credentials.password} onChange={(e)=>setcredentials({...credentials,password:e.target.value})}/>
+            </FormGroup>
+        </Col>
+        </Row>
+        </Form>
         </ModalBody>
-        <ModalFooter>
-            <Button color="primary" onClick={toggle}>Do Something</Button>{' '}
-            <Button color="secondary" onClick={toggle}>Cancel</Button>
-        </ModalFooter>
+        
+            <Button color="primary"   className={styles.loginButton} onClick={login}>Log in</Button>
+            
+        
         </Modal>
     </div>
     );
 }
 
-export default ModalExample;
+export default LoginModal;
