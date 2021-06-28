@@ -13,7 +13,20 @@ function DishData() {
         axios.get(allDishUrl)
     .then(function (response) {
         console.log(response.data);
-        setdata(response.data);
+        let val = response.data;
+        let dataArray = [];
+        for(let i=0;i<val.length;i+=4)
+        {
+            var page = [];
+            for(let j=i;j<Math.min(val.length,i+4);j++)
+            {
+                page.push(val[j]);
+            }
+            dataArray.push(page)
+        }
+        console.log(dataArray);
+        setdata(dataArray);
+
     })
     .catch(function (error) {
         console.log(error);

@@ -15,6 +15,18 @@
     text-align: center;
     width: 10vw;
 }
+.dishCard
+{
+    display: flex;
+    text-align: center;
+    justify-content: center;
+}
+.dishBlock
+{
+    width: 20vw;
+    margin: 1vw ;
+    
+}
 .loginButton
 {
     width: 94%;

@@ -1,21 +1,10 @@
 import React from 'react';
-import {
-  Card, CardImg, CardText, CardBody,
-  CardTitle, CardSubtitle, Button
-} from 'reactstrap';
-
+import styles from '../myStyles2.module.css';
+import DishBlock from './DishBlock';
 const DishCard = ({dish}) => {
     return (
-    <div>
-        <Card>
-        <CardImg top width="100%" src="/assets/318x180.svg" alt="Card image cap" />
-        <CardBody>
-            <CardTitle tag="h5">{dish.title}</CardTitle>
-            <CardSubtitle tag="h6" className="mb-2 text-muted">Card subtitle</CardSubtitle>
-            <CardText>{dish.body}</CardText>
-            <Button>Button</Button>
-        </CardBody>
-        </Card>
+    <div className={styles.dishCard}>
+        {dish&&dish.map(it=><DishBlock dish={it}/>)}
     </div>
     );
 };

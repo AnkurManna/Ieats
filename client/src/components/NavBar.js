@@ -54,7 +54,7 @@ const NavBar = ({user,setUser}) => {
                         <NavLink onClick={()=>setRegistrationModal(!registrationModal)}>{user.name}</NavLink>
                     </NavItem>
 
-                    <Button onClick={()=>setAccVisibilty('hidden')}>Flip</Button>
+                    
 
                     <Link to='/cart'  exact >Cart</Link>
                     <Link to='/orders'  exact >Order</Link>

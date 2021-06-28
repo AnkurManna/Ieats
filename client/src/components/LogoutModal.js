@@ -21,7 +21,7 @@ function LogoutModal({logoutModal,setLogoutModal}) {
         <ModalBody>
             Are you sure ? 
         </ModalBody>
-            <Button color="primary"    onClick={logout}>Log out</Button>
+            <Button color="primary"   onClick={logout}>Log out</Button>
         </Modal>
 
         </div>
