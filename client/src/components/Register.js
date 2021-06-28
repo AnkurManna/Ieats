@@ -5,7 +5,7 @@ const Register = ({flag,func}) => {
 
     
     const [user,setuser] = useState({name:'',mail:'',password:'',gender:''});
-    const apiUrl = process.env.React_App_apiUrl + 'adduser';
+    const apiUrl = 'http://localhost:5000/adduser';
     const onAdd = (val) =>{
     
     axios.post(apiUrl,val)

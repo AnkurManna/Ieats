@@ -5,22 +5,26 @@ import axios from 'axios';
 import Cookies from 'universal-cookie';
 import styles from '../myStyles2.module.css';
 require('dotenv').config();
-const LoginModal = ({loginModal,setLoginModal}) => {
+const LoginModal = ({loginModal,setLoginModal,setUser}) => {
     
     const [credentials,setcredentials] = useState({username:'',password:''});
     const apiUrl = process.env.React_App_apiUrl;
-    const authUrl = apiUrl + 'authenticate';
+    const authUrl = 'http://localhost:5000/authenticate';
     const login =  (event =>{
         event.preventDefault();
+        console.log(authUrl);
         console.log(credentials);
     axios.post(authUrl, credentials)
     .then(function (response) {
         console.log(response.data.jwt);
+        console.log(response.data);
         const cookies = new Cookies();
         cookies.set("token","Bearer "+response.data.jwt);
+        cookies.set("userid",response.data.user.userid)
+        cookies.set("userName",response.data.user.name)
        // setck(cookies.get("loggedIn"));
        toggle();
-        window.location.reload();
+       // window.location.reload();
         
     })
     .catch(function (error) {

@@ -66,6 +66,8 @@ const LoginModal = ({registrationModal,setRegistrationModal}) => {
         </Row>
         </Form>
         </ModalBody>
+
+        
         
             <Button color="primary"   className={styles.loginButton} onClick={submit}>Sign up</Button>
             

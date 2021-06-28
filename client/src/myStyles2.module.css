@@ -33,3 +33,7 @@
     }
 
 }  
+.logStatus
+{
+    visibility: hidden;
+}

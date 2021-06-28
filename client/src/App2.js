@@ -4,12 +4,13 @@ import './App.css';
 
 import React, { useState, useEffect } from 'react';
 import {BrowserRouter as Router ,Switch,Link,Route} from 'react-router-dom';
-import LandingPage from './components/LandingPage';
-import LandingPageAdmin from './components/LandingPageAdmin';
+import Cart from './components/Cart';
+import Orders from './components/Orders';
 import NavBar from './components/NavBar';
 import Entry from './components/Entry';
 import Cookies from 'universal-cookie';
 import styles from './myStyles.module.css';
+import DishData from './components/DishData';
 const axios = require('axios');
 require('dotenv').config();
 
@@ -17,7 +18,7 @@ function App2() {
   
   const [token,setToken]=useState('');
   const [isAdmin,setIsAdmin] = useState(false);
-  
+  const [user,setUser] = useState('');
   useEffect(()=>{
     const cookies = new Cookies();
     console.log("again");
@@ -38,8 +39,22 @@ function App2() {
 
   
   return (
-    
-    <NavBar/>
+    <>
+    <Router>
+    <NavBar user={user} setUser={setUser}/>
+    <Switch>
+            <div >
+                    
+            <Route exact path="/cart" ><Cart/> </Route>
+                
+            <Route exact path="/orders" > <Orders/></Route>
+
+            </div>
+          
+          </Switch>
+    </Router>
+    <DishData/>
+    </>
     
   );
 }
