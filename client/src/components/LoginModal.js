@@ -24,7 +24,7 @@ const LoginModal = ({loginModal,setLoginModal,setUser}) => {
         cookies.set("userName",response.data.user.name)
        // setck(cookies.get("loggedIn"));
        toggle();
-       // window.location.reload();
+    window.location.reload();
         
     })
     .catch(function (error) {

@@ -27,11 +27,17 @@
     margin: 1vw ;
     
 }
+.inpbox{
+    border-radius: 4px 0px 0px 4px;
+}
+.inpbtn
+{
+    border-radius: 0px 4px 4px 0px;
+}
 .loginButton
 {
     width: 94%;
     margin: auto;
-    
     margin-bottom: 6vh;
 }
 
@@ -48,4 +54,9 @@
 .logStatus
 {
     visibility: hidden;
+}
+.orderCart
+{
+    color:grey;
+    text-decoration: none;
 }

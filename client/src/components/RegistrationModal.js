@@ -8,7 +8,7 @@ require('dotenv').config();
 const LoginModal = ({registrationModal,setRegistrationModal}) => {
     
     const [user,setuser] = useState({name:'',mail:'',password:'',gender:''});
-    const apiUrl = process.env.React_App_apiUrl + 'adduser';
+    const apiUrl = 'http://localhost:5000/adduser' ;
     const onAdd = (val) =>{
     
     axios.post(apiUrl,val)
@@ -45,7 +45,7 @@ const LoginModal = ({registrationModal,setRegistrationModal}) => {
         <Col >
             <FormGroup>
             <Label for="examplePassword">Email</Label>
-            <Input type='password' placeholder='email' value={user.mail}  onChange={(e)=>setuser({...user,mail:e.target.value})}/>
+            <Input type='text' placeholder='email' value={user.mail}  onChange={(e)=>setuser({...user,mail:e.target.value})}/>
             </FormGroup>
         </Col>
 
@@ -59,7 +59,7 @@ const LoginModal = ({registrationModal,setRegistrationModal}) => {
         <Col >
             <FormGroup>
             <Label for="examplePassword">Gender</Label>
-            <Input type='password' placeholder='gender' value={user.gender}  onChange={(e)=>setuser({...user,gender:e.target.value})}/>
+            <Input type='text' placeholder='gender' value={user.gender}  onChange={(e)=>setuser({...user,gender:e.target.value})}/>
             </FormGroup>
         </Col>
 

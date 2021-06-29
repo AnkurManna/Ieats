@@ -9,18 +9,19 @@ function DishData() {
         /*var config = {
             headers: {"Authorization": getToken()}
         };*/
-        const allDishUrl = 'https://jsonplaceholder.typicode.com/posts';
+        //const allDishUrl = 'https://jsonplaceholder.typicode.com/posts';
+        const allDishUrl = 'http://localhost:5000/dish/findallDishes';
         axios.get(allDishUrl)
     .then(function (response) {
         console.log(response.data);
         let val = response.data;
         let dataArray = [];
-        for(let i=0;i<val.length;i+=4)
+        for(let i=0;i<3;i+=4)
         {
             var page = [];
-            for(let j=i;j<Math.min(val.length,i+4);j++)
+            for(let j=i;j<Math.max(val.length,i+4);j++)
             {
-                page.push(val[j]);
+                page.push(val[0]);
             }
             dataArray.push(page)
         }

@@ -42,18 +42,20 @@ function App2() {
     <>
     <Router>
     <NavBar user={user} setUser={setUser}/>
+    
     <Switch>
             <div >
                     
-            <Route exact path="/cart" ><Cart/> </Route>
+            <Route exact path="/cart" >{user&&<Cart/>} </Route>
                 
-            <Route exact path="/orders" > <Orders/></Route>
+            <Route exact path="/orders" >{user&& <Orders/>}</Route>
 
+            <Route exact path="/" ><DishData/></Route>
             </div>
           
           </Switch>
     </Router>
-    <DishData/>
+    
     </>
     
   );
