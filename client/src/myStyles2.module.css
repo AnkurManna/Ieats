@@ -21,6 +21,10 @@
     text-align: center;
     justify-content: center;
 }
+.centerText
+{
+    text-align: center;
+}
 .dishBlock
 {
     width: 20vw;
@@ -59,4 +63,8 @@
 {
     color:grey;
     text-decoration: none;
+}
+.orderText
+{
+    margin: 0px 3vw;
 }

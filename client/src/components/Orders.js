@@ -1,6 +1,23 @@
 import React,{useEffect,useState} from 'react'
 import Cookies from 'universal-cookie';
+import { ListGroup, ListGroupItem } from 'reactstrap';
 import axios from 'axios';
+import style from '../myStyles2.module.css';
+function OrderBlock(data)
+{
+    console.log(data);
+    return(
+        <>
+        <ListGroupItem className={style.centerText}><span className={style.orderText}>Type: {data.dish.type}</span>
+         <span className={style.orderText}>Description: {data.dish.description}</span> 
+         <span className={style.orderText}>Price: {data.dish.amount}</span>
+          <span className={style.orderText}>Time: {data.dish.time}</span></ListGroupItem>
+        
+        
+
+        </>
+    )
+}
 function Orders() {
     const [token,setToken]=useState('');
     const [userid,setUserid] = useState('');
@@ -34,7 +51,9 @@ function Orders() {
     ,[token]);
     return (
         <div>
-            <h2>Orders</h2>
+            <ListGroup>
+                {orderData&&orderData.map(it=><OrderBlock dish={it}/>)}
+            </ListGroup>
         </div>
     )
 }

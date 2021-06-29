@@ -1,9 +1,8 @@
 import React,{useState,useEffect} from 'react'
 import axios from 'axios';
 import Cookies from 'universal-cookie';
-/*         <h2><span>Type: {data.cartelement.type}</span> <span>Description: {data.cartelement.description}</span> <span>Price: {data.price}</span></h2>
-*/
-
+import { ListGroup, ListGroupItem ,Button} from 'reactstrap';
+import styles from '../myStyles2.module.css';
 function CartBlock(data) 
 {
    
@@ -22,9 +21,9 @@ function CartBlock(data)
     console.log(data.data);
     return(
         <>
-        <h2><span>Type: {data.data.cartelement.type}</span> <span>Description: {data.data.cartelement.description}</span> <span>Price: {data.data.price}</span>
-        <button onClick={()=>placeorder()}>Order Now</button>
-        </h2>
+        <ListGroupItem className={styles.centerText}><span className={styles.orderText}>Type: {data.data.cartelement.type}</span> <span className={styles.orderText}>Description: {data.data.cartelement.description}</span> <span className={styles.orderText}>Price: {data.data.price}</span>
+        <Button onClick={()=>placeorder()}>Order Now</Button>
+        </ListGroupItem>
 
         </>
     )
@@ -60,9 +59,9 @@ function Cart() {
     })}
     ,[token]);
     return (
-        <div>
+        <ListGroup>
             {cartData&&cartData.map(it=><CartBlock data={it}/>)}
-        </div>
+        </ListGroup>
     )
 }
 
