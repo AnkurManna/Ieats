@@ -1,0 +1,70 @@
+.enrtyPoint
+{
+    
+    
+}
+.searchBox
+{
+    display: flex;
+    width: 50vw;
+    margin: 0 2vw;
+}
+.brandName
+{
+    font-weight: bold;
+    text-align: center;
+    width: 10vw;
+}
+.dishCard
+{
+    display: flex;
+    text-align: center;
+    justify-content: center;
+}
+.centerText
+{
+    text-align: center;
+}
+.dishBlock
+{
+    width: 20vw;
+    margin: 1vw ;
+    
+}
+.inpbox{
+    border-radius: 4px 0px 0px 4px;
+}
+.inpbtn
+{
+    border-radius: 0px 4px 4px 0px;
+}
+.loginButton
+{
+    width: 94%;
+    margin: auto;
+    margin-bottom: 6vh;
+}
+
+@media only screen and (max-width: 768px) {  
+    
+    .searchBox
+    {
+        display: flex;
+        width: 60vw;
+        margin: 0 ;
+    }
+
+}  
+.logStatus
+{
+    visibility: hidden;
+}
+.orderCart
+{
+    color:grey;
+    text-decoration: none;
+}
+.orderText
+{
+    margin: 0px 3vw;
+}

@@ -8,10 +8,12 @@ function LandingPage ({ck,setck,admin,setAdmin})
     const instance = axios.create({
         withCredentials: true
     })
+    const apiUrl = process.env.React_App_apiUrl;
+    const logoutUrl = apiUrl + 'lgout';
     
     const logout =  (e=>{
         e.preventDefault();
-    axios.get('http://localhost:8081/lgout', {
+    axios.get(logoutUrl, {
         
         withCredentials: true 
     })
@@ -43,7 +45,8 @@ function LandingPage ({ck,setck,admin,setAdmin})
         var config = {
             headers: {"Authorization": getToken()}
         };
-        axios.get('http://localhost:8081/dish/findallDishes', config,[data])
+        const allDishUrl = apiUrl + 'dish/findallDishes';
+        axios.get(allDishUrl, config,[data])
     .then(function (response) {
         console.log(response.data);
         setdata(response.data);
@@ -59,7 +62,7 @@ function LandingPage ({ck,setck,admin,setAdmin})
     
     const GetSearched = (pref) =>{
         setcurtype(pref);
-        let apiUri = 'http://localhost:8081/item/';
+        let apiUri = apiUrl + 'item/';
         if(pref!==DISCOUNTED)
         apiUri = apiUri + 'searchitem/';
 
@@ -99,7 +102,6 @@ function LandingPage ({ck,setck,admin,setAdmin})
             <option value="Jeans" />
             <option value="Blazer" />
             <option value="aa" />
-
             </datalist>
 
             <button onClick={search}>search</button>

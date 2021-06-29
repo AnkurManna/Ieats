@@ -1,14 +1,19 @@
 package Ieats.domainmodel.exceptions;
 
-import lombok.AllArgsConstructor;
+import java.time.ZonedDateTime;
 
+import org.springframework.http.HttpStatus;
+
+import lombok.*;
+
+@Getter
+@Setter
 @AllArgsConstructor
-public class IeatsException extends RuntimeException {
+@NoArgsConstructor
+public class IeatsException {
 	
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
-	private ExceptionType exceptionType;
-	private String message;
+	private  String message;
+	private  Throwable throwable;
+	private HttpStatus httpStatus;
+	private ZonedDateTime timestamp;
 }

@@ -1,5 +1,6 @@
 package Ieats.domainmodel.models;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
 
@@ -21,9 +22,9 @@ public class Order {
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private Integer orderid;
 	
-	private Integer userId;
-	private Integer dishId;
-	private Date  time;
+	private String username;
+	private String dishname;
+	private LocalDateTime   time;
 	private Integer amount;
 	private Integer Bill;
 }

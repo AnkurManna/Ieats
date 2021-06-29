@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import Cookies from 'universal-cookie';
 import axios from 'axios';
+import { Col, Row, Button, Form, FormGroup, Label, Input } from 'reactstrap';
+require('dotenv').config()
 function Login({flag,func,ck,setck,setAdmin})
 {
     /*const [mail,setmail] = useState('');
@@ -12,9 +14,11 @@ function Login({flag,func,ck,setck,setAdmin})
     .catch(error=>{console.log(error)})
     }
     */
+    const apiUrl = process.env.React_App_apiUrl;
+    const authUrl = apiUrl + 'authenticate';
     const login =  (event =>{
         event.preventDefault();
-    axios.post('http://localhost:8081/authenticate', credentials)
+    axios.post(authUrl, credentials)
     .then(function (response) {
         console.log(response.data.jwt);
         const cookies = new Cookies();
@@ -35,22 +39,28 @@ function Login({flag,func,ck,setck,setAdmin})
 
     return (
         <>
-        <div className='form-control'>
-            <label>email</label>
-            <input type='text' placeholder='mail' value={credentials.username}  onChange={(e)=>setcredentials({...credentials,username:e.target.value})}/>
-        </div>
+        <Form>
+        <Row form>
+        <Col md={6}>
+        <FormGroup>
+        <Label for="exampleEmail">Email</Label>
+        <Input type='text' placeholder='mail' value={credentials.username}  onChange={(e)=>setcredentials({...credentials,username:e.target.value})}/>        </FormGroup>
+        </Col>
+    <Col md={6}>
+        <FormGroup>
+        <Label for="examplePassword">Password</Label>
+        <Input type='password' placeholder='password' value={credentials.password} onChange={(e)=>setcredentials({...credentials,password:e.target.value})}/>
+        </FormGroup>
+    </Col>
+    </Row>
 
-        <div className='form-control'>
-            <label>password</label>
-            <input type='text' placeholder='password' value={credentials.password} onChange={(e)=>setcredentials({...credentials,password:e.target.value})}/>
-        </div>
-
-        <button text='submit' onClick={login}>Add</button>
-
+        
+        <Button text='submit' onClick={login} >Add</Button>
         <div>
             <h3>Dont have any account?</h3>
             <span>Register here</span><span><button onClick={toggle}>Register</button></span>
         </div>
+        </Form>
         </>
     )
 }

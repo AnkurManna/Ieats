@@ -20,9 +20,9 @@ public class OrderAccessOperation {
 	
 	Logger logger  = LoggerFactory.getLogger(OrderAccessOperation.class);
 	
-	public List<Order> findByUserId(Integer userId)
+	public List<Order> findByUsername(String userId)
 	{
-		return repository.findByUserId(userId);
+		return repository.findByUsername(userId);
 	}
 	public Optional<Order> findById(Integer id)
 	{
@@ -31,5 +31,11 @@ public class OrderAccessOperation {
 	public void deleteById(Integer id)
 	{
 		repository.deleteById(id);
+	}
+	
+	public String save(Order order)
+	{
+		repository.save(order);
+		return "order_added";
 	}
 }
