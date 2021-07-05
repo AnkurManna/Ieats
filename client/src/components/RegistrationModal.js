@@ -16,12 +16,19 @@ const RegistrationModal = ({registrationModal,setRegistrationModal}) => {
     
     axios.post(apiUrl,val)
     .then((response)=>console.log(response))
-    .catch(error=>{console.log(error)})
+    .catch(err=>
+        {
+            setError({...error,message:err.response.data.message});
+            setAlertVisible(true);
+            return ;
+        })
     }
 
     const checkPattern = (user) => {
+        console.log("in checkPattern")
         for(let key in user)
         {
+            console.log(user[key],key);
             if(user[key]==='')
             {
                 let errString = 'Please Provide ' + key ;
@@ -60,12 +67,17 @@ const RegistrationModal = ({registrationModal,setRegistrationModal}) => {
         setAlertVisible(false);
         setError({...error,message:''});
         checkPattern(user);
-        if(error!=='')
+        if(error.message!=='')
         {
             return ;
         }
         console.log('Adding User')
-        //onAdd(user);
+        onAdd(user);
+        if(error.message!=='')
+        {
+            return ;
+        }
+        setError({...error,message:''})
         setuser({...user,name:'',mail:'',password:'',gender:''});
     }
     

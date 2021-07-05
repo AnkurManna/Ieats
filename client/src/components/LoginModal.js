@@ -13,10 +13,45 @@ const LoginModal = ({loginModal,setLoginModal,setUser}) => {
     const [alertVisible, setAlertVisible] = useState(false);
     const apiUrl = process.env.React_App_apiUrl;
     const authUrl = 'http://localhost:5000/authenticate';
+    const checkPattern = (credentials) => {
+        for(let key in credentials)
+        {
+            if(credentials[key]==='')
+            {
+                let errString = 'Please Provide ' + key ;
+                setError({...error,message:errString});
+                setAlertVisible(true);
+                return ;
+            }
+        }
+        const mailRegex = '^(?:(?!.*?[.]{2})[a-zA-Z0-9](?:[a-zA-Z0-9.+!%-]{1,64}|)|\"[a-zA-Z0-9.+!% -]{1,64}\")@[a-zA-Z0-9][a-zA-Z0-9.-]+(.[a-z]{2,}|.[0-9]{1,})$';
+        let flag = true;
+        var mailPatt = new RegExp(mailRegex);
+        flag = flag & mailPatt.test(credentials.username);
+        console.log(credentials.username, flag)
+        if(!flag)
+        {
+            setError({...error,message:'Provide correct mail'});
+            setAlertVisible(true);
+            return ;
+        }
+
+        return flag;
+    }
+    
     const login =  (event =>{
+        setError({...error,message:''});
         event.preventDefault();
         console.log(authUrl);
         console.log(credentials);
+        
+        console.log('err after resetting',error);
+        checkPattern(credentials);
+        console.log('err',error);
+        if(error.message!=='')
+        {
+            return ;
+        }
     axios.post(authUrl, credentials)
     .then(function (response) {
         console.log(response.data.jwt);
