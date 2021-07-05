@@ -4,10 +4,13 @@ import { Button, Modal, ModalHeader, ModalBody, ModalFooter,Form,Col,FormGroup,I
 import axios from 'axios';
 import Cookies from 'universal-cookie';
 import styles from '../myStyles2.module.css';
+import AlertBox from './AlertBox';
 require('dotenv').config();
-const LoginModal = ({registrationModal,setRegistrationModal}) => {
+const RegistrationModal = ({registrationModal,setRegistrationModal}) => {
     
     const [user,setuser] = useState({name:'',mail:'',password:'',gender:''});
+    const [error,setError] = useState({message:''});
+    const [alertVisible, setAlertVisible] = useState(false);
     const apiUrl = 'http://localhost:5000/adduser' ;
     const onAdd = (val) =>{
     
@@ -15,12 +18,54 @@ const LoginModal = ({registrationModal,setRegistrationModal}) => {
     .then((response)=>console.log(response))
     .catch(error=>{console.log(error)})
     }
+
+    const checkPattern = (user) => {
+        for(let key in user)
+        {
+            if(user[key]==='')
+            {
+                let errString = 'Please Provide ' + key ;
+                setError({...error,message:errString});
+                setAlertVisible(true);
+                return ;
+            }
+        }
+        const mailRegex = '^(?:(?!.*?[.]{2})[a-zA-Z0-9](?:[a-zA-Z0-9.+!%-]{1,64}|)|\"[a-zA-Z0-9.+!% -]{1,64}\")@[a-zA-Z0-9][a-zA-Z0-9.-]+(.[a-z]{2,}|.[0-9]{1,})$';
+        let flag = true;
+        var mailPatt = new RegExp(mailRegex);
+        flag = flag & mailPatt.test(user.mail);
+        if(!flag)
+        {
+            setError({...error,message:'Provide correct mail'});
+            setAlertVisible(true);
+            return ;
+        }
+        const nameReg ='^[^\s]+( [^\s]+)+$';
+        const namePatt = new RegExp(nameReg);
+        flag = flag & namePatt.test(user.name)
+        if(!flag)
+        {
+            
+            setError({...error,message:'Provide First Name and Last Name '});
+            setAlertVisible(true);
+            return ;
+        }
+        return flag;
+    }
     
     const submit = (event) =>{
         event.preventDefault();
         console.log(user);
         console.log(apiUrl);
-        onAdd(user);
+        setAlertVisible(false);
+        setError({...error,message:''});
+        checkPattern(user);
+        if(error!=='')
+        {
+            return ;
+        }
+        console.log('Adding User')
+        //onAdd(user);
         setuser({...user,name:'',mail:'',password:'',gender:''});
     }
     
@@ -34,13 +79,15 @@ const LoginModal = ({registrationModal,setRegistrationModal}) => {
         <Modal isOpen={registrationModal} toggle={toggle}>
         <ModalHeader toggle={toggle}>Sign up</ModalHeader>
         <ModalBody>
+        <AlertBox message={error.message}  alertVisible={alertVisible} setAlertVisible={setAlertVisible}/>
+
             <Form>
             <Row form>
-            <Col >
+        <Col >
             <FormGroup>
             <Label for="exampleEmail">Name</Label>
             <Input type='text' placeholder='mail'  value={user.name} onChange={(e)=>setuser({...user,name:e.target.value})} />        </FormGroup>
-            </Col>
+        </Col>
      
         <Col >
             <FormGroup>
@@ -67,14 +114,11 @@ const LoginModal = ({registrationModal,setRegistrationModal}) => {
         </Form>
         </ModalBody>
 
-        
-        
-            <Button color="primary"   className={styles.loginButton} onClick={submit}>Sign up</Button>
+        <Button color="primary"   className={styles.loginButton} onClick={submit}>Sign up</Button>
             
-        
         </Modal>
     </div>
     );
 }
 
-export default LoginModal;
+export default RegistrationModal;
