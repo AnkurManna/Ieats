@@ -1,8 +1,8 @@
 
 import React, { useState } from 'react';
-import { Button, Modal, ModalHeader, ModalBody, ModalFooter,Form,Col,FormGroup,Input,Label,Row } from 'reactstrap';
+import { Button, Modal, ModalHeader, ModalBody, Form,Col,FormGroup,Input,Label,Row } from 'reactstrap';
 import axios from 'axios';
-import Cookies from 'universal-cookie';
+
 import styles from '../myStyles2.module.css';
 import AlertBox from './AlertBox';
 require('dotenv').config();
@@ -18,6 +18,7 @@ const RegistrationModal = ({registrationModal,setRegistrationModal}) => {
     .then((response)=>console.log(response))
     .catch(err=>
         {
+            if(error.message==='')
             setError({...error,message:err.response.data.message});
             setAlertVisible(true);
             return ;
@@ -67,10 +68,7 @@ const RegistrationModal = ({registrationModal,setRegistrationModal}) => {
         setAlertVisible(false);
         setError({...error,message:''});
         checkPattern(user);
-        if(error.message!=='')
-        {
-            return ;
-        }
+        
         console.log('Adding User')
         onAdd(user);
         if(error.message!=='')

@@ -1,5 +1,5 @@
 
-import React, { useState } from 'react';
+import React, { useState ,useEffect} from 'react';
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter,Form,Col,FormGroup,Input,Label,Row } from 'reactstrap';
 import axios from 'axios';
 import Cookies from 'universal-cookie';
@@ -13,13 +13,19 @@ const LoginModal = ({loginModal,setLoginModal,setUser}) => {
     const [alertVisible, setAlertVisible] = useState(false);
     const apiUrl = process.env.React_App_apiUrl;
     const authUrl = 'http://localhost:5000/authenticate';
+    useEffect(() => {
+        
+        return () => {
+        
+        }
+    }, [error])
     const checkPattern = (credentials) => {
         for(let key in credentials)
         {
             if(credentials[key]==='')
             {
                 let errString = 'Please Provide ' + key ;
-                setError({...error,message:errString});
+                setError(error=> ({...error,message:errString}));
                 setAlertVisible(true);
                 return ;
             }
@@ -31,7 +37,7 @@ const LoginModal = ({loginModal,setLoginModal,setUser}) => {
         console.log(credentials.username, flag)
         if(!flag)
         {
-            setError({...error,message:'Provide correct mail'});
+            setError(error=>({...error,message:'Provide correct mail'}));
             setAlertVisible(true);
             return ;
         }
@@ -40,27 +46,27 @@ const LoginModal = ({loginModal,setLoginModal,setUser}) => {
     }
     
     const login =  (event =>{
-        setError({...error,message:''});
+        
         event.preventDefault();
+        setError(error=>({...error,message:''}));
         console.log(authUrl);
         console.log(credentials);
         
         console.log('err after resetting',error);
         checkPattern(credentials);
         console.log('err',error);
-        if(error.message!=='')
-        {
-            return ;
-        }
+        
     axios.post(authUrl, credentials)
     .then(function (response) {
+
+        
         console.log(response.data.jwt);
         console.log("inside then");
         const cookies = new Cookies();
         cookies.set("token","Bearer "+response.data.jwt);
         cookies.set("userid",response.data.user.userid)
         cookies.set("userName",response.data.user.name)
-        setError({...error,message:''});
+        setError(error=>({...error,message:''}));
         setAlertVisible(false);
        // setck(cookies.get("loggedIn"));
        toggle();
@@ -71,7 +77,8 @@ const LoginModal = ({loginModal,setLoginModal,setUser}) => {
         console.log("in err");
         console.log(err.response.data.message);
         //console.log(response)
-        setError({...error,message:err.response.data.message});
+        if(error.message==='')
+        setError(error=>({...error,message:err.response.data.message}));
         setAlertVisible(true);
         
     });

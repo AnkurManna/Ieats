@@ -11,6 +11,7 @@ import Entry from './components/Entry';
 import Cookies from 'universal-cookie';
 import styles from './myStyles.module.css';
 import DishData from './components/DishData';
+import ToasterComp from './components/utils/toasterComp';
 const axios = require('axios');
 require('dotenv').config();
 
@@ -55,6 +56,9 @@ function App2() {
           
           </Switch>
     </Router>
+    
+  
+
     
     </>
     
