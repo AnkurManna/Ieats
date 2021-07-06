@@ -1,5 +1,6 @@
 package Ieats.domainmodel.models;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 import javax.persistence.Entity;
@@ -16,7 +17,12 @@ import lombok.*;
 @NoArgsConstructor
 @Entity
 @Table(name="dishes")
-public  class Dish  {
+public  class Dish  implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private Integer dishid;

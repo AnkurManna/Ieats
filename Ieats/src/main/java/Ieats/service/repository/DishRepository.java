@@ -5,7 +5,6 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
 import Ieats.domainmodel.models.*;
@@ -21,6 +20,7 @@ public interface DishRepository extends JpaRepository<Dish,Integer> {
 	//public List<Item> findByGender(String gender);
 	public Optional<Dish> findByDishid(Integer id);	
 	public void deleteByDishid(Integer id);
+	public Optional<Dish> findByDescription(String desc);
 }
 
 //https://docs.spring.io/spring-data/mongodb/docs/1.2.0.RELEASE/reference/html/mongo.repositories.html

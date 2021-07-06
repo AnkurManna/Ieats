@@ -25,6 +25,7 @@ public class Cart {
 	
 	private Integer userid;
 	private Cartelement cartelement;
+	private Integer price;
 	
 	public Cart(Integer userid)
 	{

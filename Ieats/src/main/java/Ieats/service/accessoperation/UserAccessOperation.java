@@ -7,7 +7,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 //import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Service;
 
+import Ieats.domainmodel.models.Cart;
 import Ieats.domainmodel.models.User;
+import Ieats.service.repository.CartRepository;
 import Ieats.service.repository.UserRepository;
 
 @Service
@@ -15,7 +17,8 @@ public class UserAccessOperation /*implements UserDetailsService*/{
 	
 	@Autowired
 	UserRepository repository;
-	
+	@Autowired
+	CartRepository cartRepository;
 	/*@Override
 	public UserDetails loadUserByUsername(String mail)  {
 		
@@ -40,8 +43,12 @@ public class UserAccessOperation /*implements UserDetailsService*/{
 	
 	public void addUser(User user)
 	{
+		
 		repository.save(user);
+		Optional<User>user1  = repository.findByMail(user.getMail()); 
+		//cartRepository.save(new Cart(user.getUserid()));
 	}
+	
 	
 	public void updateUser(User user)
 	{

@@ -11,7 +11,7 @@ public class IeatsExceptionHandler {
 	@ExceptionHandler(value= {IeatsRequestException.class})
 	public ResponseEntity<Object> handleIeatsException(IeatsRequestException e)
 	{
-		//1.payload containing exception details
+		//1. payload containing exception details
 		//2. response entity
 		IeatsException ex = 	new IeatsException(e.getMessage(),
 				e,HttpStatus.BAD_REQUEST,

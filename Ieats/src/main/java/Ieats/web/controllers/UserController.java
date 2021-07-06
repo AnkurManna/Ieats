@@ -17,6 +17,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import Ieats.domainmodel.exceptions.ExceptionType;
+import Ieats.domainmodel.exceptions.IeatsRequestException;
 import Ieats.domainmodel.models.*;
 import Ieats.service.accessoperation.UserAccessOperation;
 import Ieats.service.repository.*;
@@ -75,8 +77,11 @@ public class UserController {
 	}
 	
 	@PostMapping("/adduser")
-	public String addUser(@RequestBody User user)
+	public String addUser(@RequestBody User user) throws Exception
 	{
+		Optional<User> existingUser = useroperation.findByMail(user.mail);
+		if(existingUser.isPresent())
+			throw new IeatsRequestException(ExceptionType.USER_ALREADY_EXISTS.toString());
 		
 		useroperation.addUser(user);
 		/*System.out.print(book.getId());
@@ -144,3 +149,7 @@ public class UserController {
     }
 	
 }
+
+/*
+ * jdbc:mysql://ieats.cqp4agbf5uqv.us-east-2.rds.amazonaws.com:3306/Ieats
+ * */

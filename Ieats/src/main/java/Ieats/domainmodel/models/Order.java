@@ -21,10 +21,10 @@ public class Order {
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private Integer orderid;
-	
-	private String username;
-	private String dishname;
+	private Integer userid;
+	private String description;
+	private String type;
 	private LocalDateTime   time;
 	private Integer amount;
-	private Integer Bill;
+	
 }
