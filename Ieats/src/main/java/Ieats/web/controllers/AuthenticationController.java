@@ -1,6 +1,8 @@
 package Ieats.web.controllers;
 
 
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -14,10 +16,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import Ieats.domainmodel.exceptions.ExceptionType;
+import Ieats.domainmodel.exceptions.IeatsRequestException;
 import Ieats.domainmodel.models.AuthenticationRequest;
 import Ieats.domainmodel.models.AuthenticationResponse;
+import Ieats.domainmodel.models.User;
 import Ieats.domainmodel.utils.JwtUtils;
 import Ieats.service.accessoperation.MyUserDetailsService;
+import Ieats.service.accessoperation.UserAccessOperation;
 
 
 
@@ -42,6 +48,9 @@ public class AuthenticationController {
 
 	@Autowired
 	private MyUserDetailsService userDetailsService;
+	
+	@Autowired
+	private UserAccessOperation accOp;
 
 	
 
@@ -54,7 +63,7 @@ public class AuthenticationController {
 			);
 		}
 		catch (BadCredentialsException e) {
-			throw new Exception("Incorrect username or password", e);
+			throw new IeatsRequestException(ExceptionType.INCORRECT_USERNAME_OR_PASSWORD.toString());
 		}
 
 
@@ -62,8 +71,11 @@ public class AuthenticationController {
 				.loadUserByUsername(authenticationRequest.getUsername());
 
 		final String jwt = jwtTokenUtil.generateToken(userDetails);
-
-		return ResponseEntity.ok(new AuthenticationResponse(jwt));
+		Optional<User> curUser = accOp.findByMail(authenticationRequest.getUsername());
+		
+		AuthenticationResponse res = new AuthenticationResponse(jwt,curUser.get());
+		System.out.print(res.user);
+		return ResponseEntity.ok(res);
 	}
 }
 

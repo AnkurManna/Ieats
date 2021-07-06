@@ -6,6 +6,7 @@ package Ieats.service.accessoperation;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Optional;
 
 import javax.servlet.http.HttpSession;
 
@@ -62,19 +63,17 @@ public class DishAccessOperation {
 		Collections.sort(all, new OrderByPreference(preference));
 		return all;
 	}
-	@Cacheable
+	
+	public Optional<Dish> findByDescription(String desc)
+	{
+		return repository.findByDescription(desc);
+	}
+	
 	public  String getAll(HashMap<String,Integer> preference,DishRepository repo,HttpSession session)
 	{
 		List<Dish> all =(List<Dish>) repo.findAll();
 		
 		all = Util(preference,all);
-	
-		
-
-    // using addAll( ) method to concatenate the lists
- 
-
-		
 			
 		ObjectMapper obj = new ObjectMapper();
 		
@@ -90,7 +89,6 @@ public class DishAccessOperation {
 	
 	
 	//repository.findByCurrentdiscountGreaterThan(0);
-	@Cacheable({"dishes"})
 	public  String getCurrentDiscounts(HashMap<String,Integer> preference)
 	{
 		List<Dish> all = repository.findByDiscountGreaterThan(0);

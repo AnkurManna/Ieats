@@ -48,14 +48,20 @@ public class CartController {
 		
 	}
 	
-	@PostMapping("/cart/addincart/{id}")
-	public Optional<Cart> addInCart(@RequestBody Dish dish,@PathVariable Integer id)
+	@PostMapping("/cart/addincart")
+	public Optional<Cart> addInCart(@RequestBody Cart cart)
 	{
-		Cart currentCart = new Cart();
+		/*Cart currentCart = new Cart();
 		currentCart.setUserid(id);
-		currentCart.setCartelement(new Cartelement(dish.getDescription(),dish.getType()));
-		op.save(currentCart);
+		currentCart.setCartelement(new Cartelement(dish.getDescription(),dish.getType()));*/
+		op.save(cart);
 		//allcart.get(0).getCartelement().add(dish);
-		return Optional.of(currentCart);
+		return Optional.of(cart);
+	}
+	
+	@GetMapping("/cart/deleteCart/{id}")
+	public void deleteCart (@PathVariable Integer id)
+	{
+		op.del(id);
 	}
 }

@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import Ieats.domainmodel.exceptions.IeatsRequestException;
+import Ieats.domainmodel.models.Cart;
 import Ieats.domainmodel.models.Cartelement;
 import Ieats.domainmodel.models.Dish;
 import Ieats.domainmodel.models.Order;
@@ -42,7 +43,7 @@ public class OrderController {
 	private JwtUtils jwtUtil;
 	
 	@PostMapping("/makeOrder")
-	public String placeOrder(@RequestBody List<Cartelement> list,HttpServletRequest request)
+	public String placeOrder(@RequestBody Cart cart,HttpServletRequest request)
 	{
 		final String authorizationHeader = request.getHeader("Authorization");
 		String username = null ;
@@ -55,7 +56,7 @@ public class OrderController {
 			
 			System.out.print(username);
 		}
-		System.out.println(list);
+		/*System.out.println(list);
 		HashMap<String,Integer> freq = new HashMap<>();
 		 for (int i = 0; i < list.size(); i++) 
 		 {
@@ -75,14 +76,21 @@ public class OrderController {
 			 if(curDish.isEmpty())
 				 throw new IeatsRequestException("No Dish Present");
 			 
-			 cur.setBill(curDish.get().getCost()*entry.getValue());
+			 
 			 cur.setAmount(entry.getValue());
 			 cur.setDishname(entry.getKey());
 			 cur.setTime(java.time.LocalDateTime.now());
 			 cur.setUsername(username);
 			 orderAcc.save(cur);
-		 }
-	            
+		 }*/
+		System.out.print(cart);
+	     Order cur = new Order();
+	     cur.setAmount(cart.getPrice());
+	     cur.setDescription(cart.getCartelement().getDescription());
+	     cur.setType(cart.getCartelement().getType());
+	     cur.setTime(java.time.LocalDateTime.now());
+	     cur.setUserid(cart.getUserid());
+	     orderAcc.save(cur);
 		return "Order Placed";
 	}
 	
@@ -90,7 +98,13 @@ public class OrderController {
 	public List<Order> getAll(@PathVariable Integer id)
 	{
 		Optional<User>curUser = userAcc.findById(id);
-		return orderAcc.findByUsername(curUser.get().getName());
+		return orderAcc.findByUserid(id);
+	}
+	
+	@GetMapping("/orders/deleteOrder/{id}")
+	public void deleteOrder(@PathVariable Integer id)
+	{
+		orderAcc.deleteById(id);
 	}
 	
 	/*
