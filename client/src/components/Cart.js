@@ -13,21 +13,23 @@ function CartBlock(data)
         .then(response => {
             
             console.log(response.data)
+            const deleteUrl = 'http://localhost:5000/cart/deleteCart/' + data.data.cartid;
+            axios.get(deleteUrl).then(res=>{console.log(res); window.location.reload();} ).catch(err=> console.log(err));
+            
         })
         .catch(e =>{
             console.log(e);
         })
     }
-    console.log(data.data);
+    
+    console.log(data.data.cartelement.type);
     return(
         <>
         <ListGroupItem className={styles.centerText}><span className={styles.orderText}>Type: {data.data.cartelement.type}</span> <span className={styles.orderText}>Description: {data.data.cartelement.description}</span> <span className={styles.orderText}>Price: {data.data.price}</span>
         <Button onClick={()=>placeorder()}>Order Now</Button>
         </ListGroupItem>
-
         </>
     )
-
 }
 function Cart() {
     const [token,setToken]=useState('');
@@ -47,6 +49,7 @@ function Cart() {
         var config = {
             headers: {"Authorization": getToken()}
         };
+        console.log(userid)
         const allCartUrl = 'http://localhost:5000/cart/Carts/'+userid;
         axios.get(allCartUrl)
     .then(function (response) {
