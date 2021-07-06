@@ -19,6 +19,7 @@ const DishBlock = ({dish}) => {
         axios.post(cartDataUrl,cartData)
         .then(response => {
             console.log(response.data)  
+            window.location.reload();
         })
         .catch(e =>{
             console.log(e);
